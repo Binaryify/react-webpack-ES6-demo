@@ -8,14 +8,23 @@ var style={
 class List extends React.Component {
   constructor (props) {
     super(props);
+    this.state={
+      liked:true
+    }
+  }
+  doSomething(ev){
+    console.log(ev)
+    this.setState({
+      liked:!this.state.liked
+    })
   }
   render () {
     var commentlist = this.props.comments.map(function(item) {
-      return <div onClick={(ev)=>console.log(item.author)}>{item.body}-{item.author}</div>
+      return <div>{item.body}-{item.author}</div>
     })
     return (
-      <div className="comment" style={style}>
-        {commentlist}
+      <div className="comment" style={style}  onClick={(ev)=>{this.doSomething(ev)}}>
+        {commentlist}{this.state.liked?"like":"don't like"}
       </div>
     )
   }
