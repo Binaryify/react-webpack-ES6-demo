@@ -225,8 +225,46 @@
 	  padding: "20px"
 	};
 
-	var List = (function (_React$Component) {
-	  _inherits(List, _React$Component);
+	var ComponentForm = (function (_React$Component) {
+	  _inherits(ComponentForm, _React$Component);
+
+	  function ComponentForm() {
+	    _classCallCheck(this, ComponentForm);
+
+	    _get(Object.getPrototypeOf(ComponentForm.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(ComponentForm, [{
+	    key: 'handleSubmit',
+	    value: function handleSubmit(ev) {
+	      ev.preventDefault();
+	      console.log(this.refs.author.getDOMNode().value.trim()); //trim 去除两边空格
+	      var author = this.refs.author.getDOMNode().value.trim();
+	      var comment = this.refs.comment.getDOMNode().value.trim();
+	      this.props.onSubmit({ author: author, comment: comment });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this = this;
+
+	      return _react2['default'].createElement(
+	        'form',
+	        { ref: 'form', className: 'comment-form', onSubmit: function (ev) {
+	            _this.handleSubmit(ev);
+	          } },
+	        _react2['default'].createElement('input', { type: 'text', placeholder: 'your name', ref: 'author' }),
+	        _react2['default'].createElement('input', { type: 'text', placeholder: 'input your comment', ref: 'comment' }),
+	        _react2['default'].createElement('input', { type: 'submit', value: 'add comment' })
+	      );
+	    }
+	  }]);
+
+	  return ComponentForm;
+	})(_react2['default'].Component);
+
+	var List = (function (_React$Component2) {
+	  _inherits(List, _React$Component2);
 
 	  function List(props) {
 	    _classCallCheck(this, List);
@@ -248,21 +286,21 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this2 = this;
 
 	      var commentlist = this.props.comments.map(function (item) {
 	        return _react2['default'].createElement(
 	          'div',
 	          null,
-	          item.body,
-	          '-',
+	          item.comment,
+	          '  -',
 	          item.author
 	        );
 	      });
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'comment', style: style, onClick: function (ev) {
-	            _this.doSomething(ev);
+	            _this2.doSomething(ev);
 	          } },
 	        commentlist,
 	        this.state.liked ? "like" : "don't like"
@@ -273,8 +311,8 @@
 	  return List;
 	})(_react2['default'].Component);
 
-	var CommentBox = (function (_React$Component2) {
-	  _inherits(CommentBox, _React$Component2);
+	var CommentBox = (function (_React$Component3) {
+	  _inherits(CommentBox, _React$Component3);
 
 	  function CommentBox(props) {
 	    _classCallCheck(this, CommentBox);
@@ -283,7 +321,7 @@
 	    this.state = {
 	      comments: [{
 	        "author": "test",
-	        "body": "test1"
+	        "comment": "test1"
 	      }]
 	    };
 	  }
@@ -291,14 +329,14 @@
 	  _createClass(CommentBox, [{
 	    key: 'loaddata',
 	    value: function loaddata() {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      setTimeout(function () {
 	        _jquery2['default'].ajax({
-	          url: _this2.props.url,
+	          url: _this3.props.url,
 	          dataType: "json",
 	          success: function success(data) {
-	            _this2.setState({ comments: data });
+	            _this3.setState({ comments: data });
 	          }
 	        });
 	      }, 2000);
@@ -309,12 +347,26 @@
 	      this.loaddata();
 	    }
 	  }, {
+	    key: 'handleNewComent',
+	    value: function handleNewComent(data) {
+	      console.log(data);
+	      // ajax业务逻辑
+	      var comment = this.state.comments;
+	      var newComment = comment.concat(data);
+	      this.setState({ comments: newComment });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this4 = this;
+
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
-	        _react2['default'].createElement(List, { comments: this.state.comments })
+	        _react2['default'].createElement(List, { comments: this.state.comments }),
+	        _react2['default'].createElement(ComponentForm, { onSubmit: function (data) {
+	            _this4.handleNewComent(data);
+	          } })
 	      );
 	    }
 	  }]);
@@ -1819,7 +1871,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  background: #fff;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 15px;\n  line-height: 1.7;\n  margin: 0;\n  padding: 30px; }\n", ""]);
+	exports.push([module.id, "body {\n  background: #fff;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 15px;\n  line-height: 1.7;\n  margin: 0;\n  padding: 30px; }\n\n.comment-form {\n  margin: 10px 0px;\n  background: #eee;\n  padding: 10px; }\n\n.comment-form input[type=text] {\n  display: block;\n  padding: 6px;\n  margin: 10px 0px;\n  min-width: 300px; }\n\n.comment-form input[type=submit] {\n  background: #fff;\n  border: 1px solid #ccc;\n  padding: 6px; }\n", ""]);
 
 	// exports
 

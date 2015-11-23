@@ -5,6 +5,24 @@ var style={
   background:"#eee",
   padding:"20px"
 }
+class ComponentForm extends React.Component{
+  handleSubmit(ev){
+    ev.preventDefault();
+    console.log(this.refs.author.getDOMNode().value.trim())  //trim 去除两边空格
+    const author=this.refs.author.getDOMNode().value.trim()
+    const comment=this.refs.comment.getDOMNode().value.trim()
+    this.props.onSubmit({author:author,comment:comment})
+  }
+  render(){
+    return(
+        <form ref="form" className="comment-form" onSubmit={(ev)=>{this.handleSubmit(ev)}}>
+        <input type="text" placeholder="your name" ref="author"/>
+        <input type="text" placeholder="input your comment" ref="comment"/>
+        <input type="submit" value="add comment" />
+        </form>
+    )
+  }
+}
 class List extends React.Component {
   constructor (props) {
     super(props);
@@ -20,7 +38,7 @@ class List extends React.Component {
   }
   render () {
     var commentlist = this.props.comments.map(function(item) {
-      return <div>{item.body}-{item.author}</div>
+      return <div>{item.comment}  -{item.author}</div>
     })
     return (
       <div className="comment" style={style}  onClick={(ev)=>{this.doSomething(ev)}}>
@@ -36,7 +54,7 @@ export default class CommentBox extends React.Component {
       comments: [
         {
           "author": "test",
-          "body": "test1"
+          "comment": "test1"
         }
       ]
     }
@@ -55,10 +73,18 @@ export default class CommentBox extends React.Component {
   componentDidMount () {
     this.loaddata();
   }
+  handleNewComent(data){
+    console.log(data)
+    // ajax业务逻辑
+    const comment=this.state.comments;
+    const newComment=comment.concat(data)
+    this.setState({comments:newComment})
+  }
   render () {
     return (
       <div>
         <List comments={this.state.comments}/>
+        <ComponentForm onSubmit={(data)=>{this.handleNewComent(data)}}/>
       </div>
     )
   }

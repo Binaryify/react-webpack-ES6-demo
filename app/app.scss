@@ -6,3 +6,21 @@ body {
   margin: 0;
   padding: 30px;
 }
+.comment-form {
+  margin: 10px 0px;
+  background: #eee;
+  padding: 10px;
+}
+
+.comment-form input[type=text] {
+  display: block;
+  padding: 6px;
+  margin: 10px 0px;
+  min-width: 300px;
+}
+
+.comment-form input[type=submit] {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 6px;
+}
