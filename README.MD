@@ -139,17 +139,18 @@ body {
   padding: 10px;
 }
 
-.comment-form input[type=text] {
-  display: block;
-  padding: 6px;
-  margin: 10px 0px;
-  min-width: 300px;
-}
-
-.comment-form input[type=submit] {
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 6px;
+.comment-form {
+  input[type=text] {
+    display: block;
+    padding: 6px;
+    margin: 10px 0px;
+    min-width: 300px;
+  }
+  input[type=submit] {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 6px;
+  }
 }
 
 ```
