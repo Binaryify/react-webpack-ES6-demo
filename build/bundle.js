@@ -238,9 +238,9 @@
 	    key: 'handleSubmit',
 	    value: function handleSubmit(ev) {
 	      ev.preventDefault();
-	      console.log(this.refs.author.getDOMNode().value.trim()); //trim 去除两边空格
-	      var author = this.refs.author.getDOMNode().value.trim();
-	      var comment = this.refs.comment.getDOMNode().value.trim();
+	      console.log(this.refs.author.value.trim()); //trim 去除两边空格
+	      var author = this.refs.author.value.trim();
+	      var comment = this.refs.comment.value.trim();
 	      this.props.onSubmit({ author: author, comment: comment });
 	    }
 	  }, {

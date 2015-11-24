@@ -8,9 +8,9 @@ var style={
 class ComponentForm extends React.Component{
   handleSubmit(ev){
     ev.preventDefault();
-    console.log(this.refs.author.getDOMNode().value.trim())  //trim 去除两边空格
-    const author=this.refs.author.getDOMNode().value.trim()
-    const comment=this.refs.comment.getDOMNode().value.trim()
+    console.log(this.refs.author.value.trim())  //trim 去除两边空格
+    const author=this.refs.author.value.trim()
+    const comment=this.refs.comment.value.trim()
     this.props.onSubmit({author:author,comment:comment})
   }
   render(){
