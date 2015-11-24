@@ -28,7 +28,7 @@ setTimeout(()=>{
 },1000)
 ```
 # component.jsx
-```jsx
+```js
 import React from 'react';
 import $ from 'jquery'
 import './app.scss';
@@ -124,7 +124,7 @@ export default class CommentBox extends React.Component {
 ```
 
 # app.scss
-```scss
+```css
 body {
   background: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
