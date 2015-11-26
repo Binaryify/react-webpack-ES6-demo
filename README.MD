@@ -8,7 +8,10 @@ This is a demo for webpack-react demo using ES6;
 * Auto Open a new browser tab when Webpack loads, and reload the page when you modified the code
 * Support git pre-commit hook used to lint and test your code
 
+![](http://zhuangtongfa.gitcafe.io/img/webpack2.png)
+
 ![](http://zhuangtongfa.gitcafe.io/img/webpack.png)
+
 
 #start
 ```
