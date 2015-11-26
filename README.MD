@@ -36,7 +36,7 @@ var style={
   background:"#eee",
   padding:"20px"
 }
-class ComponentForm extends React.Component{
+class CommentForm extends React.Component{
   handleSubmit(ev){
     ev.preventDefault();
     console.log(this.refs.author.value.trim())  //trim 去除两边空格
@@ -47,10 +47,34 @@ class ComponentForm extends React.Component{
   render(){
     return(
         <form ref="form" className="comment-form" onSubmit={(ev)=>{this.handleSubmit(ev)}}>
+        <h1>CommentForm</h1>
         <input type="text" placeholder="your name" ref="author"/>
         <input type="text" placeholder="input your comment" ref="comment"/>
         <input type="submit" value="add comment" />
         </form>
+    )
+  }
+}
+class CommentFormB extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      value:""
+    }
+  }
+  handleInput(ev){
+    this.setState({
+      value:ev.target.value
+    })
+  }
+  render(){
+    var value=this.state.value;
+    return(
+      <form className="comment-form">
+        <h1>CommentFormB</h1>
+          <input type="text" value={value} placeholder="please input some content" onChange={ev=>{this.handleInput(ev)}}/>
+          <p>{value}</p>
+      </form>
     )
   }
 }
@@ -115,7 +139,8 @@ export default class CommentBox extends React.Component {
     return (
       <div>
         <List comments={this.state.comments}/>
-        <ComponentForm onSubmit={(data)=>{this.handleNewComent(data)}}/>
+        <CommentForm onSubmit={(data)=>{this.handleNewComent(data)}}/>
+        <CommentFormB/>
       </div>
     )
   }
@@ -154,8 +179,3 @@ body {
 }
 
 ```
-# this is also hava a react-demos demo 
-
-[github](https://github.com/zhuangtongfa/react-demos)
-
-try it!

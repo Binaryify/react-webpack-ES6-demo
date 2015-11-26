@@ -225,16 +225,16 @@
 	  padding: "20px"
 	};
 
-	var ComponentForm = (function (_React$Component) {
-	  _inherits(ComponentForm, _React$Component);
+	var CommentForm = (function (_React$Component) {
+	  _inherits(CommentForm, _React$Component);
 
-	  function ComponentForm() {
-	    _classCallCheck(this, ComponentForm);
+	  function CommentForm() {
+	    _classCallCheck(this, CommentForm);
 
-	    _get(Object.getPrototypeOf(ComponentForm.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(CommentForm.prototype), 'constructor', this).apply(this, arguments);
 	  }
 
-	  _createClass(ComponentForm, [{
+	  _createClass(CommentForm, [{
 	    key: 'handleSubmit',
 	    value: function handleSubmit(ev) {
 	      ev.preventDefault();
@@ -253,6 +253,11 @@
 	        { ref: 'form', className: 'comment-form', onSubmit: function (ev) {
 	            _this.handleSubmit(ev);
 	          } },
+	        _react2['default'].createElement(
+	          'h1',
+	          null,
+	          'CommentForm'
+	        ),
 	        _react2['default'].createElement('input', { type: 'text', placeholder: 'your name', ref: 'author' }),
 	        _react2['default'].createElement('input', { type: 'text', placeholder: 'input your comment', ref: 'comment' }),
 	        _react2['default'].createElement('input', { type: 'submit', value: 'add comment' })
@@ -260,11 +265,59 @@
 	    }
 	  }]);
 
-	  return ComponentForm;
+	  return CommentForm;
 	})(_react2['default'].Component);
 
-	var List = (function (_React$Component2) {
-	  _inherits(List, _React$Component2);
+	var CommentFormB = (function (_React$Component2) {
+	  _inherits(CommentFormB, _React$Component2);
+
+	  function CommentFormB() {
+	    _classCallCheck(this, CommentFormB);
+
+	    _get(Object.getPrototypeOf(CommentFormB.prototype), 'constructor', this).call(this);
+	    this.state = {
+	      value: ""
+	    };
+	  }
+
+	  _createClass(CommentFormB, [{
+	    key: 'handleInput',
+	    value: function handleInput(ev) {
+	      this.setState({
+	        value: ev.target.value
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var value = this.state.value;
+	      return _react2['default'].createElement(
+	        'form',
+	        { className: 'comment-form' },
+	        _react2['default'].createElement(
+	          'h1',
+	          null,
+	          'CommentFormB'
+	        ),
+	        _react2['default'].createElement('input', { type: 'text', value: value, placeholder: 'please input some content', onChange: function (ev) {
+	            _this2.handleInput(ev);
+	          } }),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          value
+	        )
+	      );
+	    }
+	  }]);
+
+	  return CommentFormB;
+	})(_react2['default'].Component);
+
+	var List = (function (_React$Component3) {
+	  _inherits(List, _React$Component3);
 
 	  function List(props) {
 	    _classCallCheck(this, List);
@@ -286,7 +339,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var commentlist = this.props.comments.map(function (item) {
 	        return _react2['default'].createElement(
@@ -300,7 +353,7 @@
 	      return _react2['default'].createElement(
 	        'div',
 	        { className: 'comment', style: style, onClick: function (ev) {
-	            _this2.doSomething(ev);
+	            _this3.doSomething(ev);
 	          } },
 	        commentlist,
 	        this.state.liked ? "like" : "don't like"
@@ -311,8 +364,8 @@
 	  return List;
 	})(_react2['default'].Component);
 
-	var CommentBox = (function (_React$Component3) {
-	  _inherits(CommentBox, _React$Component3);
+	var CommentBox = (function (_React$Component4) {
+	  _inherits(CommentBox, _React$Component4);
 
 	  function CommentBox(props) {
 	    _classCallCheck(this, CommentBox);
@@ -329,14 +382,14 @@
 	  _createClass(CommentBox, [{
 	    key: 'loaddata',
 	    value: function loaddata() {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      setTimeout(function () {
 	        _jquery2['default'].ajax({
-	          url: _this3.props.url,
+	          url: _this4.props.url,
 	          dataType: "json",
 	          success: function success(data) {
-	            _this3.setState({ comments: data });
+	            _this4.setState({ comments: data });
 	          }
 	        });
 	      }, 2000);
@@ -358,15 +411,16 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
 	        _react2['default'].createElement(List, { comments: this.state.comments }),
-	        _react2['default'].createElement(ComponentForm, { onSubmit: function (data) {
-	            _this4.handleNewComent(data);
-	          } })
+	        _react2['default'].createElement(CommentForm, { onSubmit: function (data) {
+	            _this5.handleNewComent(data);
+	          } }),
+	        _react2['default'].createElement(CommentFormB, null)
 	      );
 	    }
 	  }]);
