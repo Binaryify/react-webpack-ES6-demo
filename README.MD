@@ -20,7 +20,7 @@ $ npm start
 
 ```
 
-
+You should see a new browser tap opening and a demo in http://127.0.0.1:8080.
 
 # main.jsx
 ```js
