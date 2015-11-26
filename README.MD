@@ -1,18 +1,26 @@
 This is a demo for webpack-react demo using ES6;
+
+#Features
+* Equip with React 0.14, ES6 & Babel 6
+* Lint with ESlint and Airbnb's .eslintrc
+* Build with Webpack
+* Support hot module replacement
+* Auto Open a new browser tab when Webpack loads, and reload the page when you modified the code
+* Support git pre-commit hook used to lint and test your code
+
 #start
 ```
-git clone git@github.com:zhuangtongfa/react-webpack-ES6-demo.git
+$ git clone git@github.com:zhuangtongfa/react-webpack-ES6-demo.git
 
-npm install
+$ npm install
 
-npm run dev
+$ npm start
 
-open '127.0.0.1:8080'
 ```
 
 
 
-# main.js
+# main.jsx
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom'
@@ -92,8 +100,8 @@ class List extends React.Component {
     })
   }
   render () {
-    var commentlist = this.props.comments.map(function(item) {
-      return <div>{item.comment}  -{item.author}</div>
+    var commentlist = this.props.comments.map(function(item,index) {
+      return <div key={index}>{item.comment}  -{item.author}</div>
     })
     return (
       <div className="comment" style={style}  onClick={(ev)=>{this.doSomething(ev)}}>
@@ -145,6 +153,7 @@ export default class CommentBox extends React.Component {
     )
   }
 }
+
 
 ```
 
