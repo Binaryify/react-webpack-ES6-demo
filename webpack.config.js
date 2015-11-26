@@ -1,38 +1,44 @@
+var webpack = require('webpack');
 var path = require('path');
-var node_modules = path.resolve(__dirname, 'node_modules');
-var pathToReact = path.resolve(node_modules, 'react/dist/react.min.js');
-var pathToReactDOM = path.resolve(node_modules, 'react-dom/dist/react-dom.min.js');
-config = {
-  entry: ['webpack/hot/dev-server', path.resolve(__dirname, 'app/main.js')],
-  resolve: {
-    alias: {
-      'react': pathToReact,
-      'react-dom': pathToReactDOM
-    }
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
+module.exports = {
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    contentBase: './app',
+    port: 8080
   },
+  entry: [
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://localhost:8080',
+    path.resolve(__dirname, 'app/main.jsx')
+  ],
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    path: __dirname + '/build',
+    publicPath: '/',
+    filename: './bundle.js'
   },
   module: {
     loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel'
-    }, {
-      test: /\.css$/, // Only .css files
-      loader: 'style!css' // Run both loaders
+      test: /\.js[x]?$/,
+      include: path.resolve(__dirname, 'app'),
+      exclude: /node_modules/,
+      loader: 'babel-loader'
     }, {
       test: /\.scss$/,
       loader: 'style!css!sass'
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=25000'
-    }, {
-      test: /\.woff$/,
-      loader: 'url?limit=100000'
-    }],
-    noParse: [pathToReact, pathToReactDOM]
-  }
+    }]
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new OpenBrowserPlugin({
+      url: 'http://localhost:8080'
+    })
+  ]
 };
-
-module.exports = config;

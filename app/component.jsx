@@ -61,8 +61,8 @@ class List extends React.Component {
     })
   }
   render () {
-    var commentlist = this.props.comments.map(function(item) {
-      return <div>{item.comment}  -{item.author}</div>
+    var commentlist = this.props.comments.map(function(item,index) {
+      return <div key={index}>{item.comment}  -{item.author}</div>
     })
     return (
       <div className="comment" style={style}  onClick={(ev)=>{this.doSomething(ev)}}>
